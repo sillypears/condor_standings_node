@@ -1,0 +1,15 @@
+{
+  "name": "condor_standings_node",
+  "version": "1.0.0",
+  "description": "Condor Standings in NodeJS",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sillypears/condor_standings_node"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sillypears",
+  "license": "MIT"
+}
