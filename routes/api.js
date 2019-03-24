@@ -1,17 +1,4 @@
-const dotenv = require('dotenv').config();
-const mysql = require('mysql');
-
-var conn = mysql.createConnection({
-    host    : process.env.DB_HOST,
-    user    : process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_SCHEMA
-});
-
-conn.connect(function(err){
-    if (err) throw err;
-    console.log("connected to necrodb");
-});
+const conn = require('../db.js');
 
 // @Title APIDocs
 // @Description Describes the API
@@ -19,7 +6,7 @@ conn.connect(function(err){
 // @Produce json
 // @Router /api/event [get]
 exports.api = function(req, res, next) {
-  res.json({
+res.json({
         'api': {
             'version': '1.0',
             'description': 'API Homepage',
@@ -52,7 +39,7 @@ exports.api = function(req, res, next) {
             'path': '/api/teamresults'
         }
     }
-  )
+)
 };
 
 // @Title Events
@@ -215,8 +202,4 @@ exports.teamresults = function(req, res, next) {
             res.json(results);
         }
     });
-    
-
 };
-
-

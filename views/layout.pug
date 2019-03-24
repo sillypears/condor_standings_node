@@ -1,7 +1,36 @@
 doctype html
 html
   head
-    title= title
+    title=title
+    
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    nav.navbar.fixed-top.navbar-expand-lg.navbar-dark.bg-dark.justify-content-between
+      a.navbar-brand(href='#')
+        img(src='/images/condor_crow.png', width='28px',  alt='')
+      button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+      div.collapse.navbar-collapse#navbarSupportedContent
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href="/teamresults") S6 Team Results
+          li.nav-item
+            a.nav-link(href="https://condor.host/schedule", target="_blank") Schedule
+          li.nav-item
+            a.nav-link(href="http://stats.condor.host/", target="_blank") CoNDOR Stats
+
     block content
+
+    footer.text-muted.navbar-dark.bg-dark.fixed-bottom
+      div Project on 
+        a(href='https://github.com/sillypears/condor_standings_node/', target="_blank"): img(src='https://www.vectorlogo.zone/logos/github/github-icon.svg' width='32px' height='32px')
+        | Powered by 
+        a(href='https://nodejs.org', target="_blank"): img(src='https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg', width='32px', height='32px')
+        | &nbsp;
+        a(href='https://expressjs.com', target="_blank"): img(src='https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg', height='32px', style='background-color:#BBBBBB') 
+      div This site is not affiliated with CoNDOR or Brace Yourself Games :)
+
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")

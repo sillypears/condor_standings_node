@@ -1,4 +1,18 @@
 extends layout
 
 block content
-  div Hi
+  div.container
+    div.logo
+      a(href="/"): img(src="/images/condor_logo.png")
+    div.row
+      div.col-6
+        select
+          for event in selectData
+            if event.league_name
+              option(value=event.table_schema)=event.league_name
+            else
+              option(value=event.table_schema)=event.table_schema
+      div.col-3
+        button Refresh
+      div.col-3
+        button Reset
