@@ -1,10 +1,17 @@
 {
-  "name": "condor-standings-node",
-  "version": "0.0.0",
+  "name": "condor_standings_node",
+  "version": "1.0.0",
+  "description": "Condor Standings in NodeJS", 
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sillypears/condor_standings_node"
+  },
+  "author": "sillypears",
+  "license": "MIT",
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
