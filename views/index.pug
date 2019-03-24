@@ -4,15 +4,18 @@ block content
   div.container
     div.logo
       a(href="/"): img(src="/images/condor_logo.png")
+      p &nbsp;
     div.row
-      div.col-6
-        select
+      div.col-8
+        label(for="eventSelect") Select an event:
+        select.form-control#eventSelect
+          option(value="", disabled)="Events"
           for event in selectData
             if event.league_name
               option(value=event.table_schema)=event.league_name
             else
               option(value=event.table_schema)=event.table_schema
-      div.col-3
-        button Refresh
-      div.col-3
-        button Reset
+      div.col-2
+        button.btn.btn-success.middle-vert(type="button") Refresh
+      div.col-2
+        button.btn.btn-danger.middle-vert(type="button") Reset
