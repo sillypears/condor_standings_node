@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'CoNDOR Standings' });
+  res.render('index', { 
+    title: 'CoNDOR Standings',
+    selectData: ''
+   });
 });
 
 module.exports = router;
