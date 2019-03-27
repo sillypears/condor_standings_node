@@ -4,8 +4,7 @@
   "description": "Condor Standings in NodeJS",
   "private": true,
   "scripts": {
-    "start": "pm2 start ./bin/www --watch --name cs",
-    "stop": "pm2 del cs"
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
