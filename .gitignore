@@ -39,3 +39,4 @@ jspm_packages
 
 # dotenv file with real credentials
 .env
+.vscode/launch.json
