@@ -13,11 +13,13 @@ html
         span.navbar-toggler-icon
       div.collapse.navbar-collapse#navbarSupportedContent
         ul.navbar-nav.ml-auto
-          li.nav-item.active
-            a.nav-link(href="/teamresults") S6 Team Results
-          li.nav-item
+          li.nav-item#home
+            a.nav-link(href="/") Home
+          li.nav-item#teamresults
+            a.nav-link(href="/teamresults") S7 Team Results
+          li.nav-item#schedule
             a.nav-link(href="https://condor.host/schedule", target="_blank") Schedule
-          li.nav-item
+          li.nav-item#stats
             a.nav-link(href="http://stats.condor.host/", target="_blank") CoNDOR Stats
 
     block content
@@ -34,3 +36,7 @@ html
     script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+    if navTitle == "home"
+      script(src='/javascript/index.js')
+    if navTitle == "teamresults"
+      script(src='/javascript/teamresults.js')

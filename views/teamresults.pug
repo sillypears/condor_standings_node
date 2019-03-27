@@ -1,3 +1,88 @@
 extends layout
 
 block content
+  div.container
+    div.section#header
+      div.row.justify-content-center
+        div.col-md-11.logo
+          a(href="/"): img(src="/images/condor_logo.png")
+        div.col-md-1.align-bottom
+          label.control-label.switch(for="results-switch")
+            input#results-switch.switch-input(type="checkbox")
+            span.switch-label(data-on="All Results", data-off="Some Results")
+            span.switch-handle
+    div.section.border#content
+      section.box
+        section.all-results.hidden#section-all-results
+          table.table.table-striped.table-dark.table-bordered.table-hover#table-all-results
+            thead
+              tr
+                th.results.blank
+                for header in tableHeaders
+                  th.results.text-white #{header}
+              tbody
+                for key, index in tableResultsAll
+                  tr
+                    td #{index}
+                    for val in key
+                      td #{val}
+        section.some-results#section-some-results
+          table.table.table-striped.table-dark.table-bordered.table-hover#table-some-results
+            thead
+              tr
+                th.results.blank
+                for header in tableHeaders
+                  th.results.text-white #{header}
+              tbody
+                for key, index in tableResults
+                  tr
+                    td #{index}
+                    for val in key
+                      td #{val}
+                
+              
+      //-     </tr>
+      //-     {{ range $index, $element := .Results }}
+      //-       <tr><td class="td-header header"> {{ $index }}</td>
+      //-       {{ range $key, $value := $element }}
+      //-           <td class="td-{{ $key }} results"> {{ $value }} </td>
+      //-       {{ end }}
+      //-       </tr>
+      //-     {{ end }}
+      //-   </table>
+      //- </section>
+      //- <section id="section-results-all" class="box" hidden >
+      //-   <table class="table" id="table-results-all">
+      //-     <tr>
+      //-       <th class="results blank">&nbsp;</th>
+      //-     {{ range $index, $element := .Headers }}
+      //-         <th class="th-{{ $element }} results"> {{ $element }} </th>
+      //-     {{ end }}
+      //-     </tr>
+      //-     {{ range $index, $element := .ResultsAll }}
+      //-       <tr><td class="td-header header"> {{ $index }}</td>
+      //-       {{ range $key, $value := $element }}
+      //-           <td class="td-{{ $key }} results"> {{ $value }} </td>
+      //-       {{ end }}
+      //-       </tr>
+      //-     {{ end }}
+      //-   </table>
+      //- </section>      
+      //- <section id="team-list">
+      //-   <table id="table-team-list">
+      //-     <tr>
+      //-     {{ range $index, $element := .TeamList }}
+      //-       <th class="th-team-{{ $index }}"> {{ $index }} </th>
+      //-     {{ end }}
+      //-     </tr>
+      //-     <tr>
+      //-     {{ range $key, $value := .TeamList }}
+      //-       <td id="td-team-{{ $key }}" class="td-team">
+      //-       {{ range $racer := $value }}
+      //-         <div class="div-racer"> {{ $racer }} </div>
+      //-       {{ end }}
+      //-       </td>
+      //-     {{ end }}
+      //-     </tr>
+      //-   </table>
+      //- </section>

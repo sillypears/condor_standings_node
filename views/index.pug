@@ -2,20 +2,25 @@ extends layout
 
 block content
   div.container
-    div.logo
-      a(href="/"): img(src="/images/condor_logo.png")
-      p &nbsp;
-    div.row
-      div.col-8
-        label(for="eventSelect") Select an event:
-        select.form-control#eventSelect
-          option(value="", disabled)="Events"
-          for event in selectData
-            if event.league_name
-              option(value=event.table_schema)=event.league_name
-            else
-              option(value=event.table_schema)=event.table_schema
-      div.col-2
-        button.btn.btn-success.middle-vert(type="button") Refresh
-      div.col-2
-        button.btn.btn-danger.middle-vert(type="button") Reset
+    div.section#header
+      div.logo
+        a(href="/"): img(src="/images/condor_logo.png")
+        p &nbsp;
+    div.section#control
+      div.row
+        div.col-md-8
+          label.select.control-label(for="eventSelect") Select an event:
+      div.row.justify-content-center.align-middle
+        div.col-md-8
+          select.form-control#eventSelect
+            option(value="", disabled)="Events"
+            for event in selectData
+              if event.league_name
+                option(value=event.table_schema)=event.league_name
+              else
+                option(value=event.table_schema)=event.table_schema
+        div.col-md-2.text-right
+          button.btn.btn-success(type="button") Refresh
+        div.col-md-2.text-right
+          button.btn.btn-danger(type="button") Reset
+    div.section#content

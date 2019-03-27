@@ -72,7 +72,7 @@ exports.events = function(req, res, next) {
             
         } else {
             res.json({
-                'events': results
+                'results': results
             });
         }
     });
@@ -152,7 +152,7 @@ exports.event = function(req, res, next) {
             });
         } else {
             res.json({
-                'event': results
+                'results': results
             });
         }
     });
@@ -167,29 +167,29 @@ exports.event = function(req, res, next) {
 
 exports.teamresults = function(req, res, next) {
     let sql =   `
-            SELECT
-                u1.twitch_name AS racer1,
-                s7t1.team AS team1,
-                u2.twitch_name AS racer2,
-                s7t2.team AS team2,
-                mr.winner
-            FROM
-                season_7.matches m
-                    LEFT JOIN
-                necrobot.users u1 ON u1.user_id = m.racer_1_id
-                    LEFT JOIN
-                necrobot.users u2 ON u2.user_id = m.racer_2_id
-                    LEFT JOIN
-                season_7.season_7_teams s7t1 ON s7t1.user_id = m.racer_1_id
-                    LEFT JOIN
-                season_7.season_7_teams s7t2 ON s7t2.user_id = m.racer_2_id
-                    LEFT JOIN
-                season_7.match_races mr ON mr.match_id = m.match_id
-                    LEFT JOIN
-                season_7.race_runs rr ON rr.race_id = mr.race_id
-            WHERE
-                rr.level = - 2
-            GROUP BY mr.race_id`;
+		SELECT
+		    u1.twitch_name AS racer1,
+		    s7t1.team AS team1,
+		    u2.twitch_name AS racer2,
+		    s7t2.team AS team2,
+		    mr.winner
+		FROM
+		    season_7.matches m
+		        LEFT JOIN
+		    necrobot.users u1 ON u1.user_id = m.racer_1_id
+		        LEFT JOIN
+		    necrobot.users u2 ON u2.user_id = m.racer_2_id
+		        RIGHT JOIN
+		    season_7.season_7_teams s7t1 ON s7t1.user_id = m.racer_1_id
+		        RIGHT JOIN
+		    season_7.season_7_teams s7t2 ON s7t2.user_id = m.racer_2_id
+		        LEFT JOIN
+		    season_7.match_races mr ON mr.match_id = m.match_id
+		        LEFT JOIN
+		    season_7.race_runs rr ON rr.race_id = mr.race_id
+		WHERE
+		    rr.level = -2
+        GROUP BY mr.race_id`;
     conn.query(sql, function (error, results, fields) {
         if (error) {
             res.json({
@@ -199,7 +199,9 @@ exports.teamresults = function(req, res, next) {
                 }
             });
         } else {
-            res.json(results);
+            res.json({
+                'results': results
+            });
         }
     });
 };
