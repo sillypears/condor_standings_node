@@ -1,5 +1,13 @@
 const dotenv = require('dotenv').config();
 const mysql = require('mysql');
+var fs = require('fs');
+
+fs.stat('.env', function(err, stat){
+  if(err != null && err.code == 'ENOENT') {
+    console.log("Please create .env file")
+    process.exit(1);
+  }
+});
 
 const conn = mysql.createPool({
     host    : process.env.DB_HOST,
