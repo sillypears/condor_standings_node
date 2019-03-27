@@ -1,5 +1,7 @@
 var express = require('express');
 var request = require('request');
+const lodash = require('lodash')
+var teamVars = require('../vars.js');
 
 var router = express.Router();
 const conn = ('../db.js');
@@ -29,92 +31,8 @@ router.get('/teamresults', function(req, res, next) {
   }, function (error, response, body){
     if(!error && response.statusCode == 200){
       let headers = ["Dark Cookies", "Frozen Cheese", "Italian Carrots", "Regular Ham", "Stinkin' Rebels", "Total"]
-      let teams = {
-        "Dark Cookies": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Frozen Cheese": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Italian Carrots": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Regular Ham": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Stinkin' Rebels": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        }
-      }
-
-      let teamsAll = {
-        "Dark Cookies": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Frozen Cheese": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Italian Carrots": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Regular Ham": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        },
-        "Stinkin' Rebels": {
-          "Dark Cookies":    0,
-          "Frozen Cheese":   0,
-          "Italian Carrots": 0,
-          "Regular Ham":     0,
-          "Stinkin' Rebels": 0,
-          "Total":           0,
-        }
-      }
-      
+      let teams = lodash.cloneDeep(teamVars);
+      let teamsAll = lodash.cloneDeep(teamVars);
       let json = JSON.parse(body)["results"];
       let wins = 0
       for (var i in json) {
@@ -129,7 +47,6 @@ router.get('/teamresults', function(req, res, next) {
         let tLoser = json[i][tLos];
         wins = teams[tWinner][tLoser];
         winsAll = teamsAll[tWinner][tLoser];
-        console.log("w: " + tWinner + " l: "+ tLoser + " -- " + wins);
         if (tWinner != tLoser) {
           teams[tWinner]["Total"] = teams[tWinner]["Total"] + 1;
           teams[tWinner][tLoser] = wins + 1;
