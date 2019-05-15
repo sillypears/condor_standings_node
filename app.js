@@ -26,6 +26,7 @@ app.get('/api', api.api);
 app.get('/api/event', api.events);
 app.get('/api/event/:event', api.event);
 app.get('/api/teamresults', api.teamresults);
+app.get('/api/s', api.s);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

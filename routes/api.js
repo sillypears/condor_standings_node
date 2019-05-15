@@ -205,3 +205,56 @@ exports.teamresults = function(req, res, next) {
         }
     });
 };
+
+exports.s = function(req, res, next) {
+    let sqlS =   `
+        SELECT
+            n.twitch_name
+        FROM
+            season_8.entrants e
+        LEFT JOIN
+            necrobot.users n ON n.user_id = e.user_id
+        WHERE
+            n.twitch_name like "s%"
+        `;
+    let sqlNOs =   `
+        SELECT
+            n.twitch_name
+        FROM
+            season_8.entrants e
+        LEFT JOIN
+            necrobot.users n ON n.user_id = e.user_id
+        WHERE
+            n.twitch_name not like "s%"
+		`;
+    conn.query(sqlS, function (error, results1, fields) {
+        if (error) {
+            res.json({
+                'error': {
+                    'status_code': -2,
+                    'reason': error,
+                    'message': "Could not get the S names"
+                }
+            });
+        } else {
+            conn.query(sqlNOs, function (error, results2, fields) {
+                if (error) {
+                    res.json({
+                        'error': {
+                            'status_code': -2,
+                            'reason': error,
+                            'message': "Could not get the Non-S names"
+                        }
+                    });
+                } else {
+                    res.json({
+                        'results': {
+                            'sNames': results1,
+                            'nonSNames': results2
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
