@@ -207,54 +207,44 @@ exports.teamresults = function(req, res, next) {
 };
 
 exports.s = function(req, res, next) {
-    let sqlS =   `
+    let sql =   `
         SELECT
-            n.twitch_name
+            u.discord_name AS Username,
+            u.twitch_name as tUsername,
+            u.user_id as racerId,
+            (SELECT	COUNT(*)
+                FROM season_8.race_summary rs
+                WHERE rs.winner_id = u.user_id
+            ) as wins,
+            (SELECT	COUNT(*)
+                FROM season_8.race_summary rs
+                WHERE rs.loser_id = u.user_id
+            ) as losses
         FROM
             season_8.entrants e
-        LEFT JOIN
-            necrobot.users n ON n.user_id = e.user_id
+                LEFT JOIN
+            necrobot.users u ON u.user_id = e.user_id
         WHERE
-            n.twitch_name like "s%"
-        `;
-    let sqlNOs =   `
-        SELECT
-            n.twitch_name
-        FROM
-            season_8.entrants e
-        LEFT JOIN
-            necrobot.users n ON n.user_id = e.user_id
-        WHERE
-            n.twitch_name not like "s%"
-		`;
-    conn.query(sqlS, function (error, results1, fields) {
+            u.discord_id IS NOT NULL
+            AND u.discord_name IS NOT NULL
+            AND u.twitch_name IS NOT NULL
+            AND u.user_id IS NOT NULL
+        GROUP BY u.user_id
+        ORDER BY wins desc, losses asc, tUsername asc;`
+    conn.query(sql, function (error, results, fields) {
         if (error) {
             res.json({
                 'error': {
                     'status_code': -2,
                     'reason': error,
-                    'message': "Could not get the S names"
+                    'message': "Could not get the results"
                 }
             });
         } else {
-            conn.query(sqlNOs, function (error, results2, fields) {
-                if (error) {
-                    res.json({
-                        'error': {
-                            'status_code': -2,
-                            'reason': error,
-                            'message': "Could not get the Non-S names"
-                        }
-                    });
-                } else {
-                    res.json({
-                        'results': {
-                            'sNames': results1,
-                            'nonSNames': results2
-                        }
-                    });
-                }
-            });
-        }
+            res.json({
+                'status_code': 0,
+                'results': results
+                });
+        };
     });
 };

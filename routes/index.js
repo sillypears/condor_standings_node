@@ -64,4 +64,45 @@ router.get('/teamresults', function(req, res, next) {
     }
   });
 });
+
+router.get('/s', function(req, res, next){
+  request({
+    method: 'GET',
+    uri: 'http://localhost:3000/api/s',
+  }, function (error, response, body){
+    if(!error && response.statusCode == 200){
+      let namesWithS = [];
+      let sWins = 0;
+      let nonSWins = 0;
+      let namesWithoutS = [];
+      let json = JSON.parse(body)
+      //console.log(json["status_code"])
+      if (json['status_code'] == 0) {
+        let results = json["results"];
+        for (let i = 0, len = results.length; i < len; i++) {
+          let cursor = results[i];
+          if (cursor["Username"].toLowerCase().startsWith('s')) {
+            //console.log(cursor["Username"]);
+            namesWithS.push(cursor);
+            sWins += cursor["wins"];
+          } else {
+            namesWithoutS.push(cursor);
+            nonSWins += cursor["wins"];
+          }
+          //console.log(sWins, nonSWins)
+          
+        };
+        res.render('s', {
+          title: "SEASON 8 ESSSSSSSS",
+          navTitle: "s",
+          sResults: namesWithS,
+          nonSResults: namesWithoutS,
+          sWinResults: sWins,
+          nonSWinResults: nonSWins
+        });
+      };
+    };
+  });
+});
+
 module.exports = router;
